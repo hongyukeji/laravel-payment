@@ -28,10 +28,12 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hongyukeji\\LaravelPayment\\ServiceProvider"
+                "Hongyukeji\\LaravelPayment\\ServiceProvider",
+                "Hongyukeji\\LaravelPayment\\PaymentServiceProvider"
             ],
             "alias": {
-                "LaravelPayment": "Hongyukeji\\LaravelPayment\\Facade"
+                "LaravelPayment": "Hongyukeji\\LaravelPayment\\Facade",
+                "Payment": "Hongyukeji\\LaravelPayment\\Facades\\Payment"
             }
         }
     },
