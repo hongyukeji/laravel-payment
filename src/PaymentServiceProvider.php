@@ -28,8 +28,14 @@ class PaymentServiceProvider extends ServiceProvider
 
     public function register()
     {
-        App::bind('payment', function () {
+        $this->app->singleton('payment', function ($app) {
             return new Payment;
         });
+
+        $this->app->alias('payment', Payment::class);
+
+        /*App::bind('payment', function () {
+            return new Payment;
+        });*/
     }
 }
