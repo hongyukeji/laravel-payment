@@ -37,7 +37,7 @@ if you want to use facade mode, you can register a facade name what you want to 
 // config/app.php
 
     'aliases' => [
-        'LaravelPayment' => Hongyukeji\LaravelPayment\Facade::class, // This is default in laravel 5.5
+        'Payment' => Hongyukeji\LaravelPayment\Facade::class, // This is default in laravel 5.5
     ],
 ```
 
@@ -90,15 +90,15 @@ You need to install the gateway you want to use: [omnipay#payment-gateways](http
 Gateway instance:
 
 ```php
-LaravelPayment::gateway('GATEWAY NAME'); // GATEWAY NAME is key name of `gateways` configuration.
-LaravelPayment::gateway('alipay');
-LaravelPayment::gateway('paypal');
+Payment::gateway('GATEWAY NAME'); // GATEWAY NAME is key name of `gateways` configuration.
+Payment::gateway('alipay');
+Payment::gateway('paypal');
 ```
 
 Using default gateway:
 
 ```php
-LaravelPayment::purchase(...);
+Payment::purchase(...);
 ```
 
 Example:
@@ -111,7 +111,7 @@ $formData = [
     'cvv' => '123'
 ];
 
-$response = LaravelPayment::purchase([
+$response = Payment::purchase([
     'amount' => '10.00', 
     'currency' => 'USD', 
     'card' => $formData,
