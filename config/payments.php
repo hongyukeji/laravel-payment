@@ -20,7 +20,7 @@ return [
             ],
         ],
         'alipay' => [
-            'driver' => \App\Utils\Payment\Gateways\Alipay::class,
+            'driver' => \Hongyukeji\LaravelPayment\Gateways\Alipay::class,
             'options' => [
                 'app_id' => env('PAYMENT_ALIPAY_APP_ID'),
                 'private_key' => env('PAYMENT_ALIPAY_PRIVATE_KEY'),
@@ -30,7 +30,7 @@ return [
             ],
         ],
         'wechat' => [
-            'driver' => \App\Utils\Payment\Gateways\Wechat::class,
+            'driver' => \Hongyukeji\LaravelPayment\Gateways\Wechat::class,
             'options' => [
                 'app_id' => env('PAYMENT_WECHAT_APP_ID'),
                 'app_secret' => env('PAYMENT_WECHAT_APP_SECRET'),
