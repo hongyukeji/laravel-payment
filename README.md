@@ -21,14 +21,14 @@ After updated composer, if you are using laravel version < 5.5, you need to regi
 
     'providers' => [
         //...
-        Hongyukeji\LaravelPayment\ServiceProvider::class,
+        Hongyukeji\LaravelPayment\Providers\PaymentServiceProvider::class,
     ],
 ```
 
 And publish the config file: 
 
 ```shell
-$ php artisan vendor:publish --provider=Hongyukeji\\LaravelPayment\\ServiceProvider
+$ php artisan vendor:publish --provider="Hongyukeji\\LaravelPayment\\Providers\\PaymentServiceProvider"
 ```
 
 if you want to use facade mode, you can register a facade name what you want to use, for example `LaravelPayment`:
@@ -37,7 +37,7 @@ if you want to use facade mode, you can register a facade name what you want to 
 // config/app.php
 
     'aliases' => [
-        'Payment' => Hongyukeji\LaravelPayment\Facade::class, // This is default in laravel 5.5
+        'Payment' => Hongyukeji\LaravelPayment\Facades\Payment::class, // This is default in laravel 5.5
     ],
 ```
 
