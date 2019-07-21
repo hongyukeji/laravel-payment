@@ -1,46 +1,46 @@
 <?php
 
-/*
- * This file is part of the overtrue/laravel-payment.
- *
- * (c) overtrue <i@overtrue.me>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 return [
-    // The default gateway name which configured in `gateways` section.
-    'default_gateway' => 'paypal',
 
-    // The default options for every gateways.
+    'default_gateway' => 'alipay',
+
     'default_options' => [
         'test_mode' => true,
         // ...
     ],
 
-    /*
-     * The gateways, you can config option by camel case or snake_case name.
-     *
-     * the option name is followed from gateway class, for example:
-     *
-     * $gateway->setMchId('overtrue');
-     *
-     * you can configured as:
-     *  'mch_id' => 'overtrue',
-     * or:
-     *  'mchId' => 'overtrue',
-     */
     'gateways' => [
         'paypal' => [
             'driver' => 'PayPal_Express',
             'options' => [
-                'username' => env('PAYPAL_USERNAME'),
-                'password' => env('PAYPAL_PASSWORD'),
-                'signature' => env('PAYPAL_SIGNATURE'),
-                'test_mode' => env('PAYPAL_TEST_MODE'),
+                'username' => env('PAYMENT_PAYPAL_USERNAME'),
+                'password' => env('PAYMENT_PAYPAL_PASSWORD'),
+                'signature' => env('PAYMENT_PAYPAL_SIGNATURE'),
+                'test_mode' => env('PAYMENT_PAYPAL_TEST_MODE'),
             ],
         ],
-        // other gateways
+        'alipay' => [
+            'driver' => \App\Utils\Payment\Gateways\Alipay::class,
+            'options' => [
+                'app_id' => env('PAYMENT_ALIPAY_APP_ID'),
+                'private_key' => env('PAYMENT_ALIPAY_PRIVATE_KEY'),
+                'ali_public_key' => env('PAYMENT_ALIPAY_ALI_PUBLIC_KEY'),
+                'return_url' => env('PAYMENT_ALIPAY_RETURN_URL', '/api/payments/return/alipay'),
+                'notify_url' => env('PAYMENT_ALIPAY_NOTIFY_URL', '/api/payments/notify/alipay'),
+            ],
+        ],
+        'wechat' => [
+            'driver' => \App\Utils\Payment\Gateways\Wechat::class,
+            'options' => [
+                'app_id' => env('PAYMENT_WECHAT_APP_ID'),
+                'app_secret' => env('PAYMENT_WECHAT_APP_SECRET'),
+                'mch_id' => env('PAYMENT_WECHAT_MCH_ID'),
+                'key' => env('PAYMENT_WECHAT_KEY'),
+                'return_url' => env('PAYMENT_WECHAT_RETURN_URL', '/api/payments/return/wechat'),
+                'notify_url' => env('PAYMENT_WECHAT_NOTIFY_URL', '/api/payments/notify/wechat'),
+            ],
+        ],
+
+        // other gateways ...
     ],
 ];
