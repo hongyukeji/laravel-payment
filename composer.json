@@ -11,7 +11,7 @@
     "type": "library",
     "require": {
         "php": ">=7.0",
-        "laravel/framework": "~5.0",
+        "laravel/framework": "~5.0 || ~6.0",
         "omnipay/paypal": "^3.0"
     },
     "require-dev": {
