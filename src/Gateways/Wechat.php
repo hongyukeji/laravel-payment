@@ -4,9 +4,16 @@ namespace Hongyukeji\LaravelPayment\Gateways;
 
 use Hongyukeji\LaravelPayment\Interfaces\PaymentGatewayInterface;
 use Illuminate\Config\Repository;
+use Omnipay\Omnipay;
 
 class Wechat implements PaymentGatewayInterface
 {
+    const GATEWAY_DEFAULT = 'Wechat_Express';   // 默认
+    const GATEWAY_WEB = 'WechatPay';   // 电脑
+    const GATEWAY_WAP = 'WechatPay_Mweb';   // 手机
+    const GATEWAY_APP = 'WechatPay_App';   // App
+    const GATEWAY_SCAN = 'WechatPay_Native';   // 扫码
+
     protected $config;
 
     public function __construct(...$args)
@@ -20,9 +27,14 @@ class Wechat implements PaymentGatewayInterface
      * @param $name
      * @return mixed
      */
-    public function getGateway($name)
+    public function getGateway($name = self::GATEWAY_DEFAULT)
     {
-        // TODO: Implement getGateway() method.
+        $gateway = Omnipay::create($name);
+        $gateway->setAppId($this->config->get('options.app_id'));
+        $gateway->setMchId($this->config->get('options.mch_id'));
+        $gateway->setApiKey($this->config->get('options.api_key'));
+        $gateway->setNotifyUrl($this->config->get('options.notify_url'));
+        return $gateway;
     }
 
     /**
@@ -33,7 +45,8 @@ class Wechat implements PaymentGatewayInterface
      */
     public function web($param)
     {
-        // TODO: Implement web() method.
+        $response = $this->getGateway(self::GATEWAY_SCAN)->purchase($param)->send();
+        return $response->getCodeUrl();
     }
 
     /**
@@ -44,7 +57,8 @@ class Wechat implements PaymentGatewayInterface
      */
     public function wap($param)
     {
-        // TODO: Implement wap() method.
+        $response = $this->getGateway(self::GATEWAY_WAP)->purchase()->setBizContent($param)->send();
+        return $response->getRedirectUrl();
     }
 
     /**
@@ -55,7 +69,8 @@ class Wechat implements PaymentGatewayInterface
      */
     public function app($param)
     {
-        // TODO: Implement app() method.
+        $response = $this->getGateway(self::GATEWAY_APP)->purchase()->setBizContent($param)->send();
+        return $response->getOrderString();
     }
 
     /**
@@ -66,7 +81,8 @@ class Wechat implements PaymentGatewayInterface
      */
     public function scan($param)
     {
-        // TODO: Implement scan() method.
+        $response = $this->getGateway(self::GATEWAY_SCAN)->purchase()->setBizContent($param)->send();
+        return $response->getQrCode();  // $response->getAlipayResponse() 显示支付服务商返回信息
     }
 
 }
