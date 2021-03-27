@@ -10,13 +10,13 @@
 
 ## Installing
 
-```shell
+```
 $ composer require hongyukeji/laravel-payment
 ```
 
 After updated composer, if you are using laravel version < 5.5, you need to register service provider: 
 
-```php
+```
 // config/app.php
 
     'providers' => [
@@ -33,7 +33,7 @@ $ php artisan vendor:publish --provider="Hongyukeji\\LaravelPayment\\Providers\\
 
 if you want to use facade mode, you can register a facade name what you want to use, for example `LaravelPayment`:
 
-```php
+```
 // config/app.php
 
     'aliases' => [
@@ -43,7 +43,7 @@ if you want to use facade mode, you can register a facade name what you want to 
 
 ### configuration 
 
-```php
+```
 // config/payments.php
 
     // The default gateway name which configured in `gateways` section.
@@ -89,7 +89,7 @@ You need to install the gateway you want to use: [omnipay#payment-gateways](http
 
 Gateway instance:
 
-```php
+```
 Payment::gateway('GATEWAY NAME'); // GATEWAY NAME is key name of `gateways` configuration.
 Payment::gateway('alipay');
 Payment::gateway('paypal');
@@ -97,13 +97,13 @@ Payment::gateway('paypal');
 
 Using default gateway:
 
-```php
+```
 Payment::purchase(...);
 ```
 
 Example:
 
-```php
+```
 $formData = [
     'number' => '4242424242424242', 
     'expiryMonth' => '6', 
